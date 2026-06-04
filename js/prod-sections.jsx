@@ -579,7 +579,6 @@ function SeleccionSection() {
           </div>
 
         </div>
-        </div>
 
         {/* 2×2 charts */}
         <div className="prod-charts-grid">
