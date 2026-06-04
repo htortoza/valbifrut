@@ -151,17 +151,25 @@ const CONSOLIDADO_DATA = [
 ];
 
 const RESUMEN_DATA = {
-  calibrado: {
+  calibradoNCC: {
     diario:    { producido: 30000,  meta: 40000  },
     temporada: { acumulado: 600000, meta: 550000 },
   },
-  seleccion: {
+  seleccionNSC: {
     diario:    { producido: null,   meta: 35000  },
     temporada: { acumulado: null,   meta: 500000 },
   },
-  envasado: {
+  seleccionNCC: {
+    diario:    { producido: 18000,  meta: 20000  },
+    temporada: { acumulado: 320000, meta: 300000 },
+  },
+  envasadoNSC: {
     diario:    { producido: 25000,  meta: 25000  },
     temporada: { acumulado: 480000, meta: 500000 },
+  },
+  envasadoNCC: {
+    diario:    { producido: null,   meta: 18000  },
+    temporada: { acumulado: null,   meta: 350000 },
   },
   prodHH:            { valor: 1666, meta: 1500 },
   eficienciaMaquina: { valor: 85,   meta: 100  },

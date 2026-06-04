@@ -246,11 +246,15 @@ function ResumenSuperior() {
   return (
     <div className="card card-pad" style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", gap: 14, alignItems: "stretch", flexWrap: "wrap" }}>
-        <ProcesoGroup nombre="Calibrado NCC" diario={d.calibrado.diario} temporada={d.calibrado.temporada} />
+        <ProcesoGroup nombre="Calibrado NCC" diario={d.calibradoNCC.diario} temporada={d.calibradoNCC.temporada} />
         {sep}
-        <ProcesoGroup nombre="Selección NSC" diario={d.seleccion.diario} temporada={d.seleccion.temporada} />
+        <ProcesoGroup nombre="Selección NSC" diario={d.seleccionNSC.diario} temporada={d.seleccionNSC.temporada} />
         {sep}
-        <ProcesoGroup nombre="Envasado NSC" diario={d.envasado.diario} temporada={d.envasado.temporada} />
+        <ProcesoGroup nombre="Selección NCC" diario={d.seleccionNCC.diario} temporada={d.seleccionNCC.temporada} />
+        {sep}
+        <ProcesoGroup nombre="Envasado NSC"  diario={d.envasadoNSC.diario}  temporada={d.envasadoNSC.temporada} />
+        {sep}
+        <ProcesoGroup nombre="Envasado NCC"  diario={d.envasadoNCC.diario}  temporada={d.envasadoNCC.temporada} />
         {sep}
         <div style={{ display: "flex", gap: 6 }}>
           <SemCard
