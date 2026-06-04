@@ -1,0 +1,112 @@
+/* ============ DATA & HELPERS (Valbifrut) ============ */
+
+// Walnut varieties — NCC (Nuez Con Cáscara) / NSC (Nuez Sin Cáscara)
+const VARIEDADES = [
+  { key: "chandler",   name: "Chandler",   precio: 2.40 },
+  { key: "howard",     name: "Howard",     precio: 2.25 },
+  { key: "serr",       name: "Serr",       precio: 2.10 },
+  { key: "tulare",     name: "Tulare",     precio: 1.95 },
+];
+
+// Default budget (kg) per variety — overridable by user, persisted to localStorage
+const PRESUPUESTO_DEFAULT = {
+  chandler: 380000,
+  howard:   240000,
+  serr:     150000,
+  tulare:    80000,
+};
+
+// Processed so far (kg)
+const PROCESADO = {
+  chandler: 320000,
+  howard:   210000,
+  serr:     120000,
+  tulare:    50000,
+};
+
+const DESTINOS = ["Todos", "Alemania", "Brasil", "Corea", "Italia", "España"];
+const CALIDADES = ["Todas", "Extra Light", "Light", "Light Amber", "Amber", "Industrial"];
+const VARIEDADES_FILTRO = ["Todas", "Chandler", "Howard", "Serr", "Tulare"];
+
+// Annual sales (TN) — projection 2026 vs prior years for the historical comparison
+const VENTAS_ANUALES = [
+  { year: "2021", val: 1180, hist: true },
+  { year: "2022", val: 1340, hist: true },
+  { year: "2023", val: 1520, hist: true },
+  { year: "2024", val: 1610, hist: true },
+  { year: "2025", val: 1740, hist: true },
+  { year: "2026", val: 1980, hist: false }, // proyección
+];
+
+// Volume by country (line chart) — 12 monthly points, 3 series
+const VOL_PAISES = {
+  meses: ["ENE","FEB","MAR","ABR","MAY","JUN","JUL","AGO","SET","OCT","NOV","DIC"],
+  ale: [22,26,31,38,46,55,63,72,80,86,92,97],
+  bra: [18,20,24,30,33,30,40,52,58,52,46,50],
+  kor: [28,30,34,36,33,29,30,32,33,33,32,34],
+};
+
+const MERCADOS = [
+  { pais: "Alemania", vol: 850.5, fact: 1938000, pedidos: 18, delta: "+15.2%", part: 20, precio: 12.03 },
+  { pais: "Brasil",   vol: 420.2, fact: 958000,  pedidos: 12, delta: "+4.8%",  part: 40, precio: 4.37 },
+  { pais: "Corea",    vol: 312.0, fact: 742000,  pedidos: 9,  delta: "+9.1%",  part: 22, precio: 2.38 },
+];
+
+const COMPETIDORES = [
+  { pos: 1, exp: "Nuestra Empresa", part: 12.5, precio: 2.28, propio: true },
+  { pos: 2, exp: "Global Nuts Ltd.", part: 10.2, precio: 2.15 },
+  { pos: 3, exp: "Pacific Agro",     part: 8.7,  precio: 2.32 },
+  { pos: 4, exp: "Valle Central",    part: 7.1,  precio: 2.10 },
+];
+
+// Quality parameters (default — manual or from DB)
+const CALIDAD_PARAMS_DEFAULT = [
+  { key: "humedad",   label: "Humedad",            unidad: "%",  min: 6.0,  max: 8.0,  obj: 7.0 },
+  { key: "calibre",   label: "Calibre promedio",   unidad: "mm", min: 30,   max: 34,   obj: 32 },
+  { key: "rendim",    label: "Rendimiento pulpa",  unidad: "%",  min: 48,   max: 54,   obj: 50 },
+  { key: "color",     label: "Color (Extra Light)",unidad: "%",  min: 70,   max: 100,  obj: 85 },
+  { key: "defectos",  label: "Defectos",           unidad: "%",  min: 0,    max: 5,    obj: 2 },
+];
+
+// Mechanical cracking cuts (Cortes del Partido Mecánico) — default
+const CORTES_DEFAULT = [
+  { key: "mitades",   label: "Mitades",        pct: 42, kg: 0 },
+  { key: "cuartos",   label: "Cuartos",        pct: 28, kg: 0 },
+  { key: "octavos",   label: "Octavos",        pct: 16, kg: 0 },
+  { key: "trozos",    label: "Trozos / granel",pct: 10, kg: 0 },
+  { key: "merma",     label: "Merma",          pct: 4,  kg: 0 },
+];
+
+/* ---------- formatting ---------- */
+function fmtKg(n) {
+  return Math.round(n).toLocaleString("en-US") + " KG";
+}
+function fmtUsd(n) {
+  if (n >= 1000000) return "$" + (n / 1000000).toFixed(2) + "M USD";
+  return "$" + Math.round(n).toLocaleString("en-US") + " USD";
+}
+function fmtUsdFull(n) {
+  return "$" + Math.round(n).toLocaleString("en-US") + " USD";
+}
+function fmtPct(n) {
+  return (Math.round(n * 10) / 10).toFixed(1) + "%";
+}
+
+// Format a value for a variety according to unit (kg / usd / pct)
+// total used for percentage base
+function fmtUnit(kg, precio, unit, total) {
+  if (unit === "kg")  return Math.round(kg).toLocaleString("en-US");
+  if (unit === "usd") return "$" + Math.round(kg * precio).toLocaleString("en-US");
+  if (unit === "pct") return total ? fmtPct((kg / total) * 100) : "0%";
+  return kg;
+}
+
+const UNIT_SUFFIX = { kg: "KG", usd: "USD", pct: "" };
+
+Object.assign(window, {
+  VARIEDADES, PRESUPUESTO_DEFAULT, PROCESADO,
+  DESTINOS, CALIDADES, VARIEDADES_FILTRO,
+  VENTAS_ANUALES, VOL_PAISES, MERCADOS, COMPETIDORES,
+  CALIDAD_PARAMS_DEFAULT, CORTES_DEFAULT,
+  fmtKg, fmtUsd, fmtUsdFull, fmtPct, fmtUnit, UNIT_SUFFIX,
+});

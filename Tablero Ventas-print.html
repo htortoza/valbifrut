@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valbifrut — Tablero de Ventas (Impresión)</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <style>
+    /* ===== Print optimisation ===== */
+    html, body { background: #fff; }
+
+    @media print {
+      @page { size: A4 portrait; margin: 1cm; }
+
+      html, body {
+        background: #fff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .app-shell { padding: 0 !important; max-width: 100% !important; }
+
+      /* Hide interactive-only chrome */
+      .viewtabs, .tool-row, .modal-overlay { display: none !important; }
+
+      /* Keep cards intact across page breaks */
+      .card, table, .cmp-row, .tri-grid > *, .donut-wrap {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Logical page grouping */
+      .grid-mid { break-before: page; }
+
+      /* Soften shadows for print */
+      .card { box-shadow: none !important; }
+    }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="js/data.jsx"></script>
+  <script type="text/babel" src="js/components.jsx"></script>
+  <script type="text/babel" src="js/topSection.jsx"></script>
+  <script type="text/babel" src="js/desglose.jsx"></script>
+  <script type="text/babel" src="js/lowerSections.jsx"></script>
+  <script type="text/babel" src="js/modals.jsx"></script>
+  <script type="text/babel" src="js/app.jsx"></script>
+
+  <!-- Auto-print: wait for Babel transforms, React render and fonts -->
+  <script type="text/babel">
+    (async function autoPrint() {
+      // wait for React to mount the dashboard
+      const ready = () => document.querySelector('#root .app-shell') && document.querySelectorAll('table').length > 3;
+      let tries = 0;
+      while (!ready() && tries < 80) { await new Promise(r => setTimeout(r, 100)); tries++; }
+      if (document.fonts && document.fonts.ready) { try { await document.fonts.ready; } catch (e) {} }
+      await new Promise(r => setTimeout(r, 600));
+      window.print();
+    })();
+  </script>
+</body>
+</html>
