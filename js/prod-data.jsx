@@ -107,11 +107,18 @@ const SELECCION_DATA = {
   eficiencia:    94.7,
   productividad: 14020,
   unidades:      14020,
-  fuentes: [
-    { fundo: "Funda Los Nogales",  embargado: "1,840 kg", productor: "Funda Los Nogales", destino: "India", clienteFinal: "Global Foods Turkey", producto: "Europe", variedad: "Europe" },
-    { fundo: "Agricola El Olivar", embargado: "1,840 kg", productor: "Funda Los Nogales", destino: "India", clienteFinal: "Global Foods Turkey", producto: "Europe", variedad: "Europe" },
-    { fundo: "Agricola El Olivar", embargado: "1,840 kg", productor: "Funda Los Nogales", destino: "India", clienteFinal: "Global Foods Turkey", producto: "Europe", variedad: "Europe" },
-    { fundo: "Agricola El Olivar", embargado: "1,840 kg", productor: "Funda Los Nogales", destino: "India", clienteFinal: "Global Foods Turkey", producto: "Europe", variedad: "Europe" },
+  stockProductores: [
+    { productor: "Funda Los Nogales",  kg: "1,840 kg" },
+    { productor: "Serrantur S.A.",     kg: "2,140 kg" },
+    { productor: "Agricola El Olivar", kg: "1,840 kg" },
+    { productor: "Fundo Santa Ana",    kg: "1,640 kg" },
+    { productor: "Huertos del Sur",    kg: "828 kg"   },
+  ],
+  embarques: [
+    { producto: "Saco 25kg",  destino: "India",  clienteFinal: "Global Foods Turkey", variedad: "Chandler" },
+    { producto: "Saco 25kg",  destino: "Europa", clienteFinal: "Eurofruits GmbH",     variedad: "Chandler" },
+    { producto: "Saco 25kg",  destino: "India",  clienteFinal: "Global Foods Turkey", variedad: "Serr"     },
+    { producto: "Caja 10kg",  destino: "Europa", clienteFinal: "Eurofruits GmbH",     variedad: "Serr"     },
   ],
   defectosInt: [
     { label: "Marrón",  pct: 20, pct2: 15 },

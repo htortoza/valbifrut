@@ -523,40 +523,62 @@ function SeleccionSection() {
         {/* KPI row */}
         <div className="kpi-row" style={{ marginBottom: 20 }}>
           <KpiStat label="Stock de selección"  value={d.stockSel.toLocaleString("en-US") + " KG"} highlight />
-          <KpiStat label="KG Entrada (repr)"   value={d.kgEntrada.toLocaleString("en-US")} />
+          <KpiStat label="KG Entrada (Pepa)"   value={d.kgEntrada.toLocaleString("en-US")} />
           <KpiStat label="Eficiencia de línea" value={d.eficiencia + "%"} highlight />
           <KpiStat label="Productividad"       value={d.productividad.toLocaleString("en-US")} />
           <KpiStat label="Unidades"            value={d.unidades.toLocaleString("en-US")} />
         </div>
 
-        {/* sources table */}
-        <div style={{ marginBottom: 20 }}>
-          <table className="t">
-            <thead>
-              <tr>
-                <th>Fundo</th>
-                <th>Embargado</th>
-                <th>Productor</th>
-                <th>Destino</th>
-                <th>Cliente Final</th>
-                <th>Producto</th>
-                <th>Variedad</th>
-              </tr>
-            </thead>
-            <tbody>
-              {d.fuentes.map((f, i) => (
-                <tr key={i}>
-                  <td className="var">{f.fundo}</td>
-                  <td>{f.embargado}</td>
-                  <td>{f.productor}</td>
-                  <td>{f.destino}</td>
-                  <td>{f.clienteFinal}</td>
-                  <td>{f.producto}</td>
-                  <td>{f.variedad}</td>
+        {/* dos tablas lado a lado */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+
+          {/* Tabla 1: Stock de Selección — productores */}
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 10 }}>Stock de Selección</div>
+            <table className="t">
+              <thead>
+                <tr>
+                  <th>Productor</th>
+                  <th className="num">KG</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {d.stockProductores.map((p, i) => (
+                  <tr key={i}>
+                    <td className="var">{p.productor}</td>
+                    <td className="num"><span className="cellnum pos">{p.kg}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Tabla 2: Embarque */}
+          <div>
+            <div className="eyebrow" style={{ marginBottom: 10 }}>Embarque</div>
+            <table className="t">
+              <thead>
+                <tr>
+                  <th>Producto</th>
+                  <th>Destino</th>
+                  <th>Cliente Final</th>
+                  <th>Variedad</th>
+                </tr>
+              </thead>
+              <tbody>
+                {d.embarques.map((e, i) => (
+                  <tr key={i}>
+                    <td className="var">{e.producto}</td>
+                    <td>{e.destino}</td>
+                    <td>{e.clienteFinal}</td>
+                    <td>{e.variedad}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+        </div>
         </div>
 
         {/* 2×2 charts */}
