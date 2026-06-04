@@ -150,10 +150,28 @@ const CONSOLIDADO_DATA = [
   { calibrado: "Otros",            presentacion: "800 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
 ];
 
+const RESUMEN_DATA = {
+  calibrado: {
+    diario:    { producido: 30000,  meta: 40000  },
+    temporada: { acumulado: 600000, meta: 550000 },
+  },
+  seleccion: {
+    diario:    { producido: null,   meta: 35000  },
+    temporada: { acumulado: null,   meta: 500000 },
+  },
+  envasado: {
+    diario:    { producido: 25000,  meta: 25000  },
+    temporada: { acumulado: 480000, meta: 500000 },
+  },
+  prodHH:            { valor: 1666, meta: 1500 },
+  eficienciaMaquina: { valor: 85,   meta: 100  },
+};
+
 Object.assign(window, {
   CALIBRADO_DATA,
   ENSACADO_DATA,
   PARTIDO_DATA,
   SELECCION_DATA,
   CONSOLIDADO_DATA,
+  RESUMEN_DATA,
 });

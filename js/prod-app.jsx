@@ -31,6 +31,7 @@ function ProdApp() {
         </div>
       </div>
 
+      <ResumenSuperior />
       <CalibradorSection />
       <EnsacadoSection />
 

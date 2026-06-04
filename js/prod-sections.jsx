@@ -185,6 +185,95 @@ function PartidoBars({ data }) {
 }
 
 /* ======================================================
+   RESUMEN SUPERIOR
+====================================================== */
+function ResumenSuperior() {
+  const d = RESUMEN_DATA;
+
+  function fmtKg(v) {
+    if (v === null || v === undefined) return "-";
+    return v.toLocaleString("es-CL") + " kg";
+  }
+  function fmtPct(v) {
+    if (v === null || v === undefined) return "-";
+    return v + "%";
+  }
+  function fmtKgH(v) {
+    if (v === null || v === undefined) return "-";
+    return v.toLocaleString("es-CL") + " kg/h";
+  }
+
+  function SemCard({ titulo, valorStr, metaStr, esNulo, ok }) {
+    const valueColor = esNulo ? "var(--muted)" : ok ? "var(--green-deep)" : "#c0392b";
+    return (
+      <div style={{
+        background: "#fafbfc", border: "1px solid var(--line)",
+        borderRadius: "var(--radius-sm)", padding: "12px 14px",
+        minWidth: 118, cursor: "default", userSelect: "none", flex: 1,
+      }}>
+        <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: ".07em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 6, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{titulo}</div>
+        <div style={{ fontSize: 18, fontWeight: 800, color: valueColor, fontVariantNumeric: "tabular-nums", lineHeight: 1.2 }}>{valorStr}</div>
+        <div style={{ fontSize: 10, color: "var(--muted)", marginTop: 5 }}>Meta: {metaStr}</div>
+      </div>
+    );
+  }
+
+  function ProcesoGroup({ nombre, diario, temporada }) {
+    const dNulo = diario.producido === null || diario.producido === undefined;
+    const tNulo = temporada.acumulado === null || temporada.acumulado === undefined;
+    return (
+      <div style={{ display: "flex", gap: 6, flex: 1 }}>
+        <SemCard
+          titulo={nombre + " · Diario"}
+          valorStr={fmtKg(diario.producido)}
+          metaStr={fmtKg(diario.meta)}
+          esNulo={dNulo}
+          ok={!dNulo && diario.producido >= diario.meta}
+        />
+        <SemCard
+          titulo={nombre + " · Temp."}
+          valorStr={fmtKg(temporada.acumulado)}
+          metaStr={fmtKg(temporada.meta)}
+          esNulo={tNulo}
+          ok={!tNulo && temporada.acumulado >= temporada.meta}
+        />
+      </div>
+    );
+  }
+
+  const sep = <div style={{ width: 1, background: "var(--line)", alignSelf: "stretch", flexShrink: 0 }} />;
+
+  return (
+    <div className="card card-pad" style={{ marginBottom: 16 }}>
+      <div style={{ display: "flex", gap: 14, alignItems: "stretch", flexWrap: "wrap" }}>
+        <ProcesoGroup nombre="Calibrado NCC" diario={d.calibrado.diario} temporada={d.calibrado.temporada} />
+        {sep}
+        <ProcesoGroup nombre="Selección NSC" diario={d.seleccion.diario} temporada={d.seleccion.temporada} />
+        {sep}
+        <ProcesoGroup nombre="Envasado NSC" diario={d.envasado.diario} temporada={d.envasado.temporada} />
+        {sep}
+        <div style={{ display: "flex", gap: 6 }}>
+          <SemCard
+            titulo="Productividad HH"
+            valorStr={fmtKgH(d.prodHH.valor)}
+            metaStr={fmtKgH(d.prodHH.meta)}
+            esNulo={d.prodHH.valor === null}
+            ok={d.prodHH.valor !== null && d.prodHH.valor >= d.prodHH.meta}
+          />
+          <SemCard
+            titulo="Eficiencia Máquina"
+            valorStr={fmtPct(d.eficienciaMaquina.valor)}
+            metaStr={fmtPct(d.eficienciaMaquina.meta)}
+            esNulo={d.eficienciaMaquina.valor === null}
+            ok={d.eficienciaMaquina.valor !== null && d.eficienciaMaquina.valor >= d.eficienciaMaquina.meta}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ======================================================
    SECTION 1 — CALIBRADO
 ====================================================== */
 function CalibradorSection() {
@@ -489,6 +578,6 @@ function ConsolidadoSection() {
 
 Object.assign(window, {
   CalibresCurveChart, HorizBarChart, KpiStat, SectionHeader, ProcesoDivider, PartidoBars,
-  CalibradorSection, EnsacadoSection, PartidoSection,
+  ResumenSuperior, CalibradorSection, EnsacadoSection, PartidoSection,
   SeleccionSection, ConsolidadoSection,
 });
