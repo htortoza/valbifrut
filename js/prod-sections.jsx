@@ -408,6 +408,8 @@ function ComposicionBar({ items }) {
 ====================================================== */
 function PartidoSection() {
   const d = PARTIDO_DATA;
+  const [chandler, setChandler] = React.useState(true);
+  const [serr, setSerr]         = React.useState(true);
   return (
     <div className="card card-pad" style={{ marginBottom: 16 }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18 }}>
@@ -416,7 +418,24 @@ function PartidoSection() {
           <span className="tag tag-done">Partido</span>
           <span className="tag tag-plan">AT</span>
         </div>
-        <span className="eyebrow">01 Jan 2025 — 19 Jan 2025</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+          <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 12, color: "var(--ink-2)", userSelect: "none" }}>
+            <input type="checkbox" checked={chandler} onChange={e => setChandler(e.target.checked)} style={{ accentColor: "var(--green)", width: 14, height: 14 }} />
+            Chandler
+          </label>
+          <label style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer", fontSize: 12, color: "var(--ink-2)", userSelect: "none" }}>
+            <input type="checkbox" checked={serr} onChange={e => setSerr(e.target.checked)} style={{ accentColor: "var(--green)", width: 14, height: 14 }} />
+            Serr
+          </label>
+          <div className="select" style={{ minWidth: 140 }}>
+            <select>
+              <option>01 Jan — 19 Jan</option>
+              <option>Última semana</option>
+              <option>Último mes</option>
+              <option>Temporada completa</option>
+            </select>
+          </div>
+        </div>
       </div>
 
       {/* KPI row 1 */}
