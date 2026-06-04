@@ -72,14 +72,22 @@ const ENSACADO_DATA = {
 };
 
 const PARTIDO_DATA = {
-  rendPepa:     44.83,
-  motivo:       44.83,
-  totalPartido: 18500,
-  mtStock:      15000,
-  atStock:       2000,
-  kgDia:        18500,
-  pctMerma:       2.5,
-  rechazo:       1500,
+  rendPepa:          44.83,
+  rendPepaKg:         5299,
+  mitades:           44.83,
+  mitadesKg:          5299,
+  totalVaciado:      18500,
+  totalVaciadoPct:      83,
+  mpSeca:            15000,
+  entradaPrecalibre:  2000,
+  productividad:     18500,
+  horasHombres:        2.5,
+  descarte:           1500,
+  descarteComp: [
+    { label: "Marrón", pct: 45, color: "#4e7a28" },
+    { label: "Seco",   pct: 35, color: "#85b840" },
+    { label: "Mohoso", pct: 20, color: "#c5dfa8" },
+  ],
   cuadrillas: [
     { nombre: "Cuadrilla 1", lhp: "1.4H", destino: "Europa" },
     { nombre: "Cuadrilla 2", lhp: "2.6H", destino: "Europa" },

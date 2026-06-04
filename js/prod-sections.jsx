@@ -363,6 +363,28 @@ function EnsacadoSection() {
   );
 }
 
+/* ---- Composición bar (3 segmentos) ---- */
+function ComposicionBar({ items }) {
+  return (
+    <div style={{ marginTop: 10 }}>
+      <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: ".07em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 5 }}>Composición</div>
+      <div style={{ display: "flex", height: 8, borderRadius: 4, overflow: "hidden" }}>
+        {items.map((item, i) => (
+          <div key={i} style={{ width: item.pct + "%", background: item.color }} />
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: 10, marginTop: 6, flexWrap: "wrap" }}>
+        {items.map((item, i) => (
+          <div key={i} style={{ display: "flex", alignItems: "center", gap: 3 }}>
+            <div style={{ width: 7, height: 7, borderRadius: 2, background: item.color, flexShrink: 0 }} />
+            <span style={{ fontSize: 9, color: "var(--ink-2)" }}>{item.label} {item.pct}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 /* ======================================================
    SECTION 3 — PARTIDO MECÁNICO
 ====================================================== */
@@ -381,18 +403,22 @@ function PartidoSection() {
 
       {/* KPI row 1 */}
       <div className="kpi-row" style={{ marginBottom: 12 }}>
-        <KpiStat label="Rendimiento de pepa" value={d.rendPepa + "%"} highlight />
-        <KpiStat label="Motivo"              value={d.motivo + "%"} />
-        <KpiStat label="Total partido"       value={d.totalPartido.toLocaleString("en-US") + " kg"} />
-        <KpiStat label="MT Stock"            value={d.mtStock.toLocaleString("en-US") + " kg"} />
-        <KpiStat label="AT Stock"            value={d.atStock.toLocaleString("en-US") + " kg"} />
+        <KpiStat label="Rendimiento de pepa" value={d.rendPepa + "%"}                             sub={d.rendPepaKg.toLocaleString("en-US") + " kg"}  highlight />
+        <KpiStat label="Mitades"             value={d.mitades + "%"}                              sub={d.mitadesKg.toLocaleString("en-US") + " kg"} />
+        <KpiStat label="Total vaciado"       value={d.totalVaciado.toLocaleString("en-US") + " kg"} sub={d.totalVaciadoPct + "%"} />
+        <KpiStat label="MP Seca"             value={d.mpSeca.toLocaleString("en-US") + " kg"}    highlight />
+        <KpiStat label="Entrada Precalibre"  value={d.entradaPrecalibre.toLocaleString("en-US") + " kg"} tone="red" />
       </div>
 
       {/* KPI row 2 */}
-      <div className="kpi-row" style={{ marginBottom: 20 }}>
-        <KpiStat label="KG / día"  value={d.kgDia.toLocaleString("en-US") + " kg/día"} highlight />
-        <KpiStat label="% Merma"   value={d.pctMerma + "%"} />
-        <KpiStat label="Rechazo"   value={d.rechazo.toLocaleString("en-US") + " kg"} />
+      <div className="kpi-row" style={{ marginBottom: 20, alignItems: "stretch" }}>
+        <KpiStat label="Productividad"  value={d.productividad.toLocaleString("en-US") + " kg/hr"} highlight />
+        <KpiStat label="Horas Hombres"  value={d.horasHombres + " hrs"} />
+        <div className="kpi-stat" style={{ flex: 2 }}>
+          <div className="kpi-label">Descarte</div>
+          <div className="kpi-value">{d.descarte.toLocaleString("en-US") + " kg"}</div>
+          <ComposicionBar items={d.descarteComp} />
+        </div>
       </div>
 
       {/* cuadrillas + bars */}
@@ -546,7 +572,7 @@ function ConsolidadoSection() {
 }
 
 Object.assign(window, {
-  CalibresCurveChart, HorizBarChart, KpiStat, SectionHeader, ProcesoDivider, PartidoBars,
+  CalibresCurveChart, HorizBarChart, KpiStat, SectionHeader, ProcesoDivider, PartidoBars, ComposicionBar,
   ResumenSuperior, CalibradorSection, EnsacadoSection, PartidoSection,
   SeleccionSection, ConsolidadoSection,
 });
