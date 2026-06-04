@@ -112,7 +112,6 @@ const SELECCION_DATA = {
     { productor: "Serrantur S.A.",     kg: "2,140 kg" },
     { productor: "Agricola El Olivar", kg: "1,840 kg" },
     { productor: "Fundo Santa Ana",    kg: "1,640 kg" },
-    { productor: "Huertos del Sur",    kg: "828 kg"   },
   ],
   embarques: [
     { embarque: "EMB-001", productor: "Funda Los Nogales",  destino: "India",  clienteFinal: "Global Foods Turkey", producto: "Saco 25kg", variedad: "Chandler" },

@@ -533,8 +533,7 @@ function SeleccionSection() {
         <div style={{ display: "grid", gridTemplateColumns: "3fr 7fr", gap: 20, marginBottom: 20 }}>
 
           {/* Tabla 1: Stock de Selección — productores */}
-          <div>
-            <div className="eyebrow" style={{ marginBottom: 10 }}>Stock de Selección</div>
+          <div style={{ border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "12px 14px" }}>
             <table className="t">
               <thead>
                 <tr>
@@ -554,8 +553,7 @@ function SeleccionSection() {
           </div>
 
           {/* Tabla 2: Embarque — 6 columnas */}
-          <div>
-            <div className="eyebrow" style={{ marginBottom: 10 }}>Embarque</div>
+          <div style={{ border: "1px solid var(--line)", borderRadius: "var(--radius-sm)", padding: "12px 14px" }}>
             <table className="t">
               <thead>
                 <tr>
