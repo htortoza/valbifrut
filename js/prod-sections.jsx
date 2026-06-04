@@ -585,7 +585,7 @@ function SeleccionSection() {
         {/* 2×2 charts */}
         <div className="prod-charts-grid">
           <div className="prod-chart-card">
-            <HorizBarChart data={d.calibres} title="Calibres" dual />
+            <HorizBarChart data={d.cortes} title="Cortes" dual />
           </div>
           <div className="prod-chart-card">
             <HorizBarChart data={d.defectosInt} title="Defectos internos" dual />

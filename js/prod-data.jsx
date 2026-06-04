@@ -137,12 +137,12 @@ const SELECCION_DATA = {
     { label: "Contaminación", pct: 4,  pct2: 3  },
     { label: "Humedad",       pct: 9,  pct2: 7  },
   ],
-  calibres: [
-    { label: "4ème",  pct: 38, pct2: 32 },
-    { label: "6ème",  pct: 32, pct2: 26 },
-    { label: "8ème",  pct: 18, pct2: 15 },
-    { label: "10ème", pct: 8,  pct2: 6  },
-    { label: "12ème", pct: 4,  pct2: 3  },
+  cortes: [
+    { label: "Mitades",       pct: 48, pct2: 42 },
+    { label: "Med. Mitades",  pct: 22, pct2: 18 },
+    { label: "Cuartos",       pct: 16, pct2: 14 },
+    { label: "Trozos",        pct: 10, pct2: 8  },
+    { label: "Chips",         pct: 4,  pct2: 3  },
   ],
 };
 
