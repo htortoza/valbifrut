@@ -8,8 +8,8 @@ const NCC_PROD = [
   { name: "32-34mm",  desp: 96000,  comp: 28000, xv: 44000,  fob: 2.70 },
   { name: "30-32mm",  desp: 74000,  comp: 22000, xv: 36000,  fob: 2.45 },
   { name: "28-30mm",  desp: 52000,  comp: 16000, xv: 24000,  fob: 2.20 },
-  { name: "26-28mm",  desp: 34000,  comp: 10000, xv: -5200,  fob: 1.95 },
-  { name: "-26mm",    desp: 18000,  comp: 6000,  xv: -8400,  fob: 1.60 },
+  { name: "26-28mm",  desp: 34000,  comp: 10000, xv: 3200,   fob: 1.95 },
+  { name: "-26mm",    desp: 18000,  comp: 6000,  xv: 1800,   fob: 1.60 },
 ];
 
 const NSC_PROD = [
@@ -17,9 +17,9 @@ const NSC_PROD = [
   { name: "Cuartos EL/L",              desp: 62000, comp: 18000, xv: 30000,  fob: 7.20 },
   { name: "Cuartillos 6-9 y 9-13mm",   desp: 44000, comp: 12000, xv: 22000,  fob: 6.10 },
   { name: "Cuartillos 3-6 mm",         desp: 28000, comp: 8000,  xv: 14000,  fob: 5.30 },
-  { name: "Harinilla",                 desp: 16000, comp: 5000,  xv: -3100,  fob: 3.80 },
+  { name: "Harinilla",                 desp: 16000, comp: 5000,  xv: 2100,   fob: 3.80 },
   { name: "Otros colores (LA, Am, A)", desp: 22000, comp: 7000,  xv: 12000,  fob: 4.50 },
-  { name: "Industrial A y B",          desp: 30000, comp: 9000,  xv: -6800,  fob: 3.20 },
+  { name: "Industrial A y B",          desp: 30000, comp: 9000,  xv: 2700,   fob: 3.20 },
   { name: "Descartes / Desecho",       desp: 9000,  comp: 2000,  xv: 4000,   fob: 0.90 },
   { name: "Basura",                    desp: 3000,  comp: 0,     xv: 0,      fob: 0 },
 ];
@@ -182,13 +182,14 @@ function DesgloseProducto({ calidad, variedad }) {
                 <tr className="grp"><td colSpan={2}>NCC</td></tr>
                 {NCC_PROD.map(p => {
                   const val = nuevoSaldo[p.name];
-                  const neg = val < 0;
+                  const low = val < 8000;
                   return (
                     <tr key={p.name}>
                       <td className="var">{p.name}</td>
                       <td className="num">
-                        <span className="cellnum out-val" style={neg ? { color: "#c0392b", fontWeight: 600 } : {}}>
-                          {neg ? "-" : ""}{Math.abs(val).toLocaleString("en-US")}
+                        <span className="cellnum out-val"
+                          style={low ? { background: "#fff0f0", color: "#c0392b" } : {}}>
+                          {val.toLocaleString("en-US")}
                         </span>
                       </td>
                     </tr>
@@ -197,13 +198,14 @@ function DesgloseProducto({ calidad, variedad }) {
                 <tr className="grp"><td colSpan={2}>NSC</td></tr>
                 {NSC_PROD.map(p => {
                   const val = nuevoSaldo[p.name];
-                  const neg = val < 0;
+                  const low = val < 8000;
                   return (
                     <tr key={p.name}>
                       <td className="var">{p.name}</td>
                       <td className="num">
-                        <span className="cellnum out-val" style={neg ? { color: "#c0392b", fontWeight: 600 } : {}}>
-                          {neg ? "-" : ""}{Math.abs(val).toLocaleString("en-US")}
+                        <span className="cellnum out-val"
+                          style={low ? { background: "#fff0f0", color: "#c0392b" } : {}}>
+                          {val.toLocaleString("en-US")}
                         </span>
                       </td>
                     </tr>
