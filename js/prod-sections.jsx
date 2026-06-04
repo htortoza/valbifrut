@@ -470,9 +470,9 @@ function PartidoSection() {
           <table className="t">
             <thead>
               <tr>
-                <th>Cuadrilla</th>
-                <th className="num">L.HP</th>
-                <th className="num">Destino</th>
+                <th>BOD</th>
+                <th className="num">Chandler</th>
+                <th className="num">Total</th>
               </tr>
             </thead>
             <tbody>
