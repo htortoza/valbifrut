@@ -530,7 +530,7 @@ function SeleccionSection() {
         </div>
 
         {/* dos tablas lado a lado */}
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginBottom: 20 }}>
+        <div style={{ display: "grid", gridTemplateColumns: "3fr 7fr", gap: 20, marginBottom: 20 }}>
 
           {/* Tabla 1: Stock de Selección — productores */}
           <div>
@@ -553,24 +553,28 @@ function SeleccionSection() {
             </table>
           </div>
 
-          {/* Tabla 2: Embarque */}
+          {/* Tabla 2: Embarque — 6 columnas */}
           <div>
             <div className="eyebrow" style={{ marginBottom: 10 }}>Embarque</div>
             <table className="t">
               <thead>
                 <tr>
-                  <th>Producto</th>
+                  <th>Embarque</th>
+                  <th>Productor</th>
                   <th>Destino</th>
                   <th>Cliente Final</th>
+                  <th>Producto</th>
                   <th>Variedad</th>
                 </tr>
               </thead>
               <tbody>
                 {d.embarques.map((e, i) => (
                   <tr key={i}>
-                    <td className="var">{e.producto}</td>
+                    <td className="var">{e.embarque}</td>
+                    <td>{e.productor}</td>
                     <td>{e.destino}</td>
                     <td>{e.clienteFinal}</td>
+                    <td>{e.producto}</td>
                     <td>{e.variedad}</td>
                   </tr>
                 ))}

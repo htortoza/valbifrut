@@ -115,10 +115,10 @@ const SELECCION_DATA = {
     { productor: "Huertos del Sur",    kg: "828 kg"   },
   ],
   embarques: [
-    { producto: "Saco 25kg",  destino: "India",  clienteFinal: "Global Foods Turkey", variedad: "Chandler" },
-    { producto: "Saco 25kg",  destino: "Europa", clienteFinal: "Eurofruits GmbH",     variedad: "Chandler" },
-    { producto: "Saco 25kg",  destino: "India",  clienteFinal: "Global Foods Turkey", variedad: "Serr"     },
-    { producto: "Caja 10kg",  destino: "Europa", clienteFinal: "Eurofruits GmbH",     variedad: "Serr"     },
+    { embarque: "EMB-001", productor: "Funda Los Nogales",  destino: "India",  clienteFinal: "Global Foods Turkey", producto: "Saco 25kg", variedad: "Chandler" },
+    { embarque: "EMB-002", productor: "Serrantur S.A.",     destino: "Europa", clienteFinal: "Eurofruits GmbH",     producto: "Saco 25kg", variedad: "Chandler" },
+    { embarque: "EMB-003", productor: "Agricola El Olivar", destino: "India",  clienteFinal: "Global Foods Turkey", producto: "Saco 25kg", variedad: "Serr"     },
+    { embarque: "EMB-004", productor: "Fundo Santa Ana",    destino: "Europa", clienteFinal: "Eurofruits GmbH",     producto: "Caja 10kg", variedad: "Serr"     },
   ],
   defectosInt: [
     { label: "Marrón",  pct: 20, pct2: 15 },
