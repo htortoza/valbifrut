@@ -147,17 +147,18 @@ const SELECCION_DATA = {
 };
 
 const CONSOLIDADO_DATA = [
-  { calibrado: "Miades",           presentacion: "4,100 kg", variedad: "-3%",  estado: "412 kg", cantKg: "+41%", monto: "+41%", negVar: true },
-  { calibrado: "Cuartos",          presentacion: "800 kg",   variedad: "-61%", estado: "412 kg", cantKg: "+5%",  monto: "+5%",  negVar: true },
-  { calibrado: "Trozos",           presentacion: "150 kg",   variedad: "+3%",  estado: "432 kg", cantKg: "+3%",  monto: "+3%"  },
-  { calibrado: "X3 piezas",        presentacion: "800 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
-  { calibrado: "1/2 Light",        presentacion: "800 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
-  { calibrado: "1/2 Light Ámbar",  presentacion: "800 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
-  { calibrado: "5/4 LA",           presentacion: "150 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
-  { calibrado: "Ídeas",            presentacion: "800 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
-  { calibrado: "Mc Amarillo",      presentacion: "150 kg",   variedad: "+5%",  estado: "432 kg", cantKg: "+5%",  monto: "+5%"  },
-  { calibrado: "Otros",            presentacion: "800 kg",   variedad: "+4%",  estado: "432 kg", cantKg: "+4%",  monto: "+4%"  },
+  { categoria: "Mitades",         chandlerKg: "4,100 kg", chandlerPct: "44%", serrKg: "1,200 kg", serrPct: "38%" },
+  { categoria: "Cuartos",         chandlerKg: "800 kg",   chandlerPct: "9%",  serrKg: "500 kg",   serrPct: "16%" },
+  { categoria: "Trozos",          chandlerKg: "150 kg",   chandlerPct: "2%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "X3 piezas",       chandlerKg: "800 kg",   chandlerPct: "9%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "1/2 Light",       chandlerKg: "800 kg",   chandlerPct: "9%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "1/2 Light Ámbar", chandlerKg: "800 kg",   chandlerPct: "9%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "5/4 LA",          chandlerKg: "150 kg",   chandlerPct: "2%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "Ídeas",           chandlerKg: "800 kg",   chandlerPct: "9%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "Mc Amarillo",     chandlerKg: "150 kg",   chandlerPct: "2%",  serrKg: "432 kg",   serrPct: "14%" },
+  { categoria: "Otros",           chandlerKg: "800 kg",   chandlerPct: "9%",  serrKg: "432 kg",   serrPct: "14%" },
 ];
+const CONSOLIDADO_CUADRATURA = 73;
 
 const RESUMEN_DATA = {
   calibradoNCC: {
@@ -190,5 +191,6 @@ Object.assign(window, {
   PARTIDO_DATA,
   SELECCION_DATA,
   CONSOLIDADO_DATA,
+  CONSOLIDADO_CUADRATURA,
   RESUMEN_DATA,
 });

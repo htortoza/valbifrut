@@ -606,41 +606,57 @@ function SeleccionSection() {
    SECTION 5 — CONSOLIDADO DE PRODUCTO FINAL
 ====================================================== */
 function ConsolidadoSection() {
-  const d = CONSOLIDADO_DATA;
+  const d   = CONSOLIDADO_DATA;
+  const pct = CONSOLIDADO_CUADRATURA;
+
+  const thBase   = { padding: "8px 12px", fontSize: 10, fontWeight: 700, letterSpacing: ".06em", textTransform: "uppercase", textAlign: "right", borderBottom: "2px solid rgba(255,255,255,0.1)" };
+  const thCat    = { ...thBase, textAlign: "left", color: "rgba(255,255,255,0.5)", borderRight: "1px solid rgba(255,255,255,0.08)" };
+  const thChandler = { ...thBase, background: "rgba(59,130,246,0.18)", color: "#93c5fd", borderLeft: "2px solid rgba(59,130,246,0.4)" };
+  const thSerr   = { ...thBase, background: "rgba(78,122,40,0.18)",  color: "#86efac", borderLeft: "2px solid rgba(78,122,40,0.5)" };
+
+  const tdBase   = { padding: "7px 12px", fontSize: 12, textAlign: "right", borderBottom: "1px solid rgba(255,255,255,0.05)" };
+  const tdCat    = { ...tdBase, textAlign: "left", color: "rgba(255,255,255,0.85)", fontWeight: 600, borderRight: "1px solid rgba(255,255,255,0.08)" };
+  const tdChandler = { ...tdBase, color: "#93c5fd", borderLeft: "2px solid rgba(59,130,246,0.15)" };
+  const tdSerr   = { ...tdBase, color: "#86efac",  borderLeft: "2px solid rgba(78,122,40,0.2)" };
+
   return (
     <div className="prod-consolidado">
-      <div className="prod-consolidado-head">
-        CONSOLIDADO DE PRODUCTO FINAL
-      </div>
-      <table className="prod-cons-table">
+      <div className="prod-consolidado-head">CONSOLIDADO DE PRODUCTO FINAL</div>
+
+      <table style={{ width: "100%", borderCollapse: "collapse", marginBottom: 20 }}>
         <thead>
           <tr>
-            <th>Calibrado</th>
-            <th className="num">Presentación</th>
-            <th className="num">Variedad</th>
-            <th className="num">Estado</th>
-            <th className="num">Cant./KG</th>
-            <th className="num">Monto</th>
+            <th style={thCat}>Categoría</th>
+            <th style={thChandler}>Chandler (Kg)</th>
+            <th style={thChandler}>Chandler (%)</th>
+            <th style={thSerr}>Serr (Kg)</th>
+            <th style={thSerr}>Serr (%)</th>
           </tr>
         </thead>
         <tbody>
           {d.map((r, i) => (
-            <tr key={i}>
-              <td className="var">{r.calibrado}</td>
-              <td className="num">{r.presentacion}</td>
-              <td className="num">
-                <span className={"cellnum " + (r.negVar ? "neg" : "pos")}>{r.variedad}</span>
-              </td>
-              <td className="num">{r.estado}</td>
-              <td className="num"><span className="cellnum pos">{r.cantKg}</span></td>
-              <td className="num"><span className="cellnum pos">{r.monto}</span></td>
+            <tr key={i} style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.03)" : "transparent" }}>
+              <td style={tdCat}>{r.categoria}</td>
+              <td style={tdChandler}>{r.chandlerKg}</td>
+              <td style={tdChandler}>{r.chandlerPct}</td>
+              <td style={tdSerr}>{r.serrKg}</td>
+              <td style={tdSerr}>{r.serrPct}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <div className="prod-cuadratura">
-        <span>CUADRATURA DEL LOTE DISTRICT 68 APROX</span>
-        <span className="prod-cuadratura-pct">98.61%</span>
+
+      {/* Cuadratura */}
+      <div>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
+          <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: ".08em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)" }}>
+            Cuadratura del lote (Output vs Input)
+          </span>
+          <span style={{ fontSize: 16, fontWeight: 800, color: "#fff" }}>{pct}%</span>
+        </div>
+        <div style={{ height: 8, background: "rgba(255,255,255,0.1)", borderRadius: 4, overflow: "hidden" }}>
+          <div style={{ height: "100%", width: pct + "%", background: "var(--green)", borderRadius: 4 }} />
+        </div>
       </div>
     </div>
   );
