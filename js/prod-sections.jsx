@@ -190,18 +190,9 @@ function PartidoBars({ data }) {
 function ResumenSuperior() {
   const d = RESUMEN_DATA;
 
-  function fmtKg(v) {
-    if (v === null || v === undefined) return "-";
-    return v.toLocaleString("es-CL") + " kg";
-  }
-  function fmtPct(v) {
-    if (v === null || v === undefined) return "-";
-    return v + "%";
-  }
-  function fmtKgH(v) {
-    if (v === null || v === undefined) return "-";
-    return v.toLocaleString("es-CL") + " kg/h";
-  }
+  function fmtKg(v)  { return (v === null || v === undefined) ? "-" : v.toLocaleString("es-CL") + " kg"; }
+  function fmtPct(v) { return (v === null || v === undefined) ? "-" : v + "%"; }
+  function fmtKgH(v) { return (v === null || v === undefined) ? "-" : v.toLocaleString("es-CL") + " kg/h"; }
 
   function SemCard({ titulo, valorStr, metaStr, esNulo, ok }) {
     const valueColor = esNulo ? "var(--muted)" : ok ? "var(--green-deep)" : "#c0392b";
@@ -209,7 +200,7 @@ function ResumenSuperior() {
       <div style={{
         background: "#fafbfc", border: "1px solid var(--line)",
         borderRadius: "var(--radius-sm)", padding: "12px 14px",
-        minWidth: 118, cursor: "default", userSelect: "none", flex: 1,
+        cursor: "default", userSelect: "none",
       }}>
         <div style={{ fontSize: 9, fontWeight: 600, letterSpacing: ".07em", textTransform: "uppercase", color: "var(--muted)", marginBottom: 6, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{titulo}</div>
         <div style={{ fontSize: 18, fontWeight: 800, color: valueColor, fontVariantNumeric: "tabular-nums", lineHeight: 1.2 }}>{valorStr}</div>
@@ -218,60 +209,34 @@ function ResumenSuperior() {
     );
   }
 
-  function ProcesoGroup({ nombre, diario, temporada }) {
-    const dNulo = diario.producido === null || diario.producido === undefined;
-    const tNulo = temporada.acumulado === null || temporada.acumulado === undefined;
-    return (
-      <div style={{ display: "flex", gap: 6, flex: 1 }}>
-        <SemCard
-          titulo={nombre + " · Diario"}
-          valorStr={fmtKg(diario.producido)}
-          metaStr={fmtKg(diario.meta)}
-          esNulo={dNulo}
-          ok={!dNulo && diario.producido >= diario.meta}
-        />
-        <SemCard
-          titulo={nombre + " · Temp."}
-          valorStr={fmtKg(temporada.acumulado)}
-          metaStr={fmtKg(temporada.meta)}
-          esNulo={tNulo}
-          ok={!tNulo && temporada.acumulado >= temporada.meta}
-        />
-      </div>
-    );
+  function card(titulo, valorStr, metaStr, esNulo, ok) {
+    return <SemCard titulo={titulo} valorStr={valorStr} metaStr={metaStr} esNulo={esNulo} ok={ok} />;
+  }
+  function cardKg(titulo, val, meta) {
+    const nulo = val === null || val === undefined;
+    return card(titulo, fmtKg(val), fmtKg(meta), nulo, !nulo && val >= meta);
   }
 
-  const sep = <div style={{ width: 1, background: "var(--line)", alignSelf: "stretch", flexShrink: 0 }} />;
+  const { calibradoNCC: ca, seleccionNSC: sn, seleccionNCC: sc, envasadoNSC: en, envasadoNCC: ec, prodHH: hh, eficienciaMaquina: em } = d;
 
   return (
     <div className="card card-pad" style={{ marginBottom: 16 }}>
-      <div style={{ display: "flex", gap: 14, alignItems: "stretch", flexWrap: "wrap" }}>
-        <ProcesoGroup nombre="Calibrado NCC" diario={d.calibradoNCC.diario} temporada={d.calibradoNCC.temporada} />
-        {sep}
-        <ProcesoGroup nombre="Selección NSC" diario={d.seleccionNSC.diario} temporada={d.seleccionNSC.temporada} />
-        {sep}
-        <ProcesoGroup nombre="Selección NCC" diario={d.seleccionNCC.diario} temporada={d.seleccionNCC.temporada} />
-        {sep}
-        <ProcesoGroup nombre="Envasado NSC"  diario={d.envasadoNSC.diario}  temporada={d.envasadoNSC.temporada} />
-        {sep}
-        <ProcesoGroup nombre="Envasado NCC"  diario={d.envasadoNCC.diario}  temporada={d.envasadoNCC.temporada} />
-        {sep}
-        <div style={{ display: "flex", gap: 6 }}>
-          <SemCard
-            titulo="Productividad HH"
-            valorStr={fmtKgH(d.prodHH.valor)}
-            metaStr={fmtKgH(d.prodHH.meta)}
-            esNulo={d.prodHH.valor === null}
-            ok={d.prodHH.valor !== null && d.prodHH.valor >= d.prodHH.meta}
-          />
-          <SemCard
-            titulo="Eficiencia Máquina"
-            valorStr={fmtPct(d.eficienciaMaquina.valor)}
-            metaStr={fmtPct(d.eficienciaMaquina.meta)}
-            esNulo={d.eficienciaMaquina.valor === null}
-            ok={d.eficienciaMaquina.valor !== null && d.eficienciaMaquina.valor >= d.eficienciaMaquina.meta}
-          />
-        </div>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8 }}>
+        {/* Fila 1 */}
+        {cardKg("Calibrado NCC · Diario",   ca.diario.producido,    ca.diario.meta)}
+        {cardKg("Calibrado NCC · Temp.",     ca.temporada.acumulado, ca.temporada.meta)}
+        {cardKg("Selección NSC · Diario",    sn.diario.producido,    sn.diario.meta)}
+        {cardKg("Selección NSC · Temp.",     sn.temporada.acumulado, sn.temporada.meta)}
+        {/* Fila 2 */}
+        {cardKg("Selección NCC · Diario",    sc.diario.producido,    sc.diario.meta)}
+        {cardKg("Selección NCC · Temp.",     sc.temporada.acumulado, sc.temporada.meta)}
+        {cardKg("Envasado NSC · Diario",     en.diario.producido,    en.diario.meta)}
+        {cardKg("Envasado NSC · Temp.",      en.temporada.acumulado, en.temporada.meta)}
+        {/* Fila 3 */}
+        {cardKg("Envasado NCC · Diario",     ec.diario.producido,    ec.diario.meta)}
+        {cardKg("Envasado NCC · Temp.",      ec.temporada.acumulado, ec.temporada.meta)}
+        {card("Productividad HH",  fmtKgH(hh.valor), fmtKgH(hh.meta), hh.valor === null, hh.valor !== null && hh.valor >= hh.meta)}
+        {card("Eficiencia Máquina", fmtPct(em.valor), fmtPct(em.meta), em.valor === null, em.valor !== null && em.valor >= em.meta)}
       </div>
     </div>
   );
