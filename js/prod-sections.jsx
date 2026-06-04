@@ -158,25 +158,43 @@ function ProcesoDivider({ label }) {
   );
 }
 
-/* ---- Grouped vertical bars (partido MT vs AT) ---- */
+/* ---- Grouped vertical bars (Mitades / Vaciado / Pepa) ---- */
 function PartidoBars({ data }) {
-  const W = 520, H = 170, padB = 26, padT = 10;
-  const max = Math.max(...data.flatMap(d => [d.mt, d.at])) * 1.18;
-  const n = data.length;
-  const slot = W / n;
-  const bw = 17;
-  const gap = 4;
+  const W = 520, H = 190, padB = 28, padT = 22;
+  const keys   = ["mitades", "vaciado", "pepa"];
+  const colors = ["#4e7a28", "#85b840", "#c5dfa8"];
+  const max    = Math.max(...data.flatMap(d => keys.map(k => d[k]))) * 1.15;
+  const n      = data.length;
+  const slot   = W / n;
+  const bw = 13, gap = 3;
+  const baseline = H - padB;
+
   return (
     <svg viewBox={`0 0 ${W} ${H}`} width="100%" height={H} preserveAspectRatio="xMidYMid meet">
+      {/* baseline */}
+      <line x1={0} x2={W} y1={baseline} y2={baseline} stroke="#e8eaed" strokeWidth="1" />
+
       {data.map((d, i) => {
-        const hMt = (d.mt / max) * (H - padB - padT);
-        const hAt = (d.at / max) * (H - padB - padT);
-        const cx = i * slot + slot / 2;
+        const total = keys.reduce((s, k) => s + d[k], 0);
+        const cx    = i * slot + slot / 2;
+        const startX = cx - ((bw * 3 + gap * 2) / 2);
         return (
           <g key={d.label}>
-            <rect x={cx - bw - gap / 2} y={H - padB - hMt} width={bw} height={hMt} rx="4" fill="var(--green)" />
-            <rect x={cx + gap / 2}      y={H - padB - hAt} width={bw} height={hAt} rx="4" fill="var(--green-mint)" />
-            <text x={cx} y={H - 8} textAnchor="middle" fontSize="10" fill="var(--muted)">{d.label}</text>
+            {keys.map((key, ki) => {
+              const val  = d[key];
+              const h    = (val / max) * (H - padB - padT);
+              const x    = startX + ki * (bw + gap);
+              const y    = baseline - h;
+              const pct  = Math.round(val / total * 100);
+              const textFill = ki === 2 ? "var(--muted)" : colors[ki];
+              return (
+                <g key={key}>
+                  <rect x={x} y={y} width={bw} height={h} rx="3" fill={colors[ki]} />
+                  <text x={x + bw / 2} y={y - 4} textAnchor="middle" fontSize="8" fontWeight="700" fill={textFill}>{pct}%</text>
+                </g>
+              );
+            })}
+            <text x={cx} y={H - 10} textAnchor="middle" fontSize="10" fill="var(--muted)">{d.label}</text>
           </g>
         );
       })}
@@ -429,7 +447,7 @@ function PartidoSection() {
       {/* cuadrillas + bars */}
       <div className="grid-mid">
         <div>
-          <div className="eyebrow" style={{ marginBottom: 12 }}>Rendimiento por cuadrilla</div>
+          <div className="eyebrow" style={{ marginBottom: 12 }}>Stock por reprocesar</div>
           <table className="t">
             <thead>
               <tr>
@@ -451,10 +469,20 @@ function PartidoSection() {
         </div>
         <div className="prod-chart-card">
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-            <div className="eyebrow">Desglose de partido por noche y temporada</div>
-            <div className="chart-legend">
-              <span className="li"><span className="dot" style={{ background: "var(--green)" }}></span>MT</span>
-              <span className="li"><span className="dot" style={{ background: "var(--green-mint)" }}></span>AT</span>
+            <div className="eyebrow">Análisis de Partido (Mitades vs Vaciado vs Pepa)</div>
+            <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+              <div className="chart-legend" style={{ margin: 0 }}>
+                <span className="li"><span className="dot" style={{ background: "#4e7a28" }}></span>Mitades</span>
+                <span className="li"><span className="dot" style={{ background: "#85b840" }}></span>Vaciado</span>
+                <span className="li"><span className="dot" style={{ background: "#c5dfa8" }}></span>Pepa</span>
+              </div>
+              <div className="select" style={{ minWidth: 120 }}>
+                <select>
+                  <option>01 Jan — 19 Jan</option>
+                  <option>Última semana</option>
+                  <option>Último mes</option>
+                </select>
+              </div>
             </div>
           </div>
           <PartidoBars data={d.barras} />

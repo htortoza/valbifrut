@@ -92,12 +92,12 @@ const PARTIDO_DATA = {
     { nombre: "Cuadrilla 6", lhp: "4.5H", destino: "Europa" },
   ],
   barras: [
-    { label: "11 jan", mt: 14200, at: 11800 },
-    { label: "13 jan", mt: 15500, at: 14000 },
-    { label: "15 jan", mt: 13000, at: 11500 },
-    { label: "17 jan", mt: 16000, at: 14500 },
-    { label: "19 jan", mt: 15000, at: 13500 },
-    { label: "21 jan", mt: 14500, at: 12800 },
+    { label: "11 jan", mitades: 8200,  vaciado: 4200, pepa: 1800 },
+    { label: "13 jan", mitades: 9000,  vaciado: 4500, pepa: 2000 },
+    { label: "15 jan", mitades: 7500,  vaciado: 3800, pepa: 1700 },
+    { label: "17 jan", mitades: 9200,  vaciado: 5000, pepa: 1800 },
+    { label: "19 jan", mitades: 8700,  vaciado: 4800, pepa: 1500 },
+    { label: "21 jan", mitades: 8400,  vaciado: 4200, pepa: 1900 },
   ],
 };
 
