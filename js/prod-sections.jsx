@@ -411,14 +411,19 @@ function PartidoSection() {
       </div>
 
       {/* KPI row 2 */}
-      <div className="kpi-row" style={{ marginBottom: 20, alignItems: "stretch" }}>
-        <KpiStat label="Productividad"  value={d.productividad.toLocaleString("en-US") + " kg/hr"} highlight />
-        <KpiStat label="Horas Hombres"  value={d.horasHombres + " hrs"} />
-        <div className="kpi-stat" style={{ flex: 2 }}>
-          <div className="kpi-label">Descarte</div>
-          <div className="kpi-value">{d.descarte.toLocaleString("en-US") + " kg"}</div>
-          <ComposicionBar items={d.descarteComp} />
-        </div>
+      <div className="kpi-row" style={{ marginBottom: 12 }}>
+        <KpiStat label="Productividad" value={d.productividad.toLocaleString("en-US") + " kg/hr"} highlight />
+        <KpiStat label="Horas Hombres" value={d.horasHombres + " hrs"} />
+        <KpiStat label="Descarte"      value={d.descarte.toLocaleString("en-US") + " kg"} />
+      </div>
+
+      {/* Composición MP Seca / Precalibre / Descarte */}
+      <div style={{ marginBottom: 20 }}>
+        <ComposicionBar items={[
+          { label: "MP Seca",    pct: Math.round(d.mpSeca            / d.totalVaciado * 100), color: "#4e7a28" },
+          { label: "Precalibre", pct: Math.round(d.entradaPrecalibre / d.totalVaciado * 100), color: "#85b840" },
+          { label: "Descarte",   pct: Math.round(d.descarte          / d.totalVaciado * 100), color: "#c5dfa8" },
+        ]} />
       </div>
 
       {/* cuadrillas + bars */}

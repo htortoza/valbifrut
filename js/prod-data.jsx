@@ -83,11 +83,6 @@ const PARTIDO_DATA = {
   productividad:     18500,
   horasHombres:        2.5,
   descarte:           1500,
-  descarteComp: [
-    { label: "Marrón", pct: 45, color: "#4e7a28" },
-    { label: "Seco",   pct: 35, color: "#85b840" },
-    { label: "Mohoso", pct: 20, color: "#c5dfa8" },
-  ],
   cuadrillas: [
     { nombre: "Cuadrilla 1", lhp: "1.4H", destino: "Europa" },
     { nombre: "Cuadrilla 2", lhp: "2.6H", destino: "Europa" },
