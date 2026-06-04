@@ -2,31 +2,25 @@
 
 // Walnut varieties — NCC (Nuez Con Cáscara) / NSC (Nuez Sin Cáscara)
 const VARIEDADES = [
-  { key: "chandler",   name: "Chandler",   precio: 2.40 },
-  { key: "howard",     name: "Howard",     precio: 2.25 },
-  { key: "serr",       name: "Serr",       precio: 2.10 },
-  { key: "tulare",     name: "Tulare",     precio: 1.95 },
+  { key: "chandler", name: "Chandler", precio: 2.40 },
+  { key: "serr",     name: "Serr",     precio: 2.10 },
 ];
 
 // Default budget (kg) per variety — overridable by user, persisted to localStorage
 const PRESUPUESTO_DEFAULT = {
   chandler: 380000,
-  howard:   240000,
   serr:     150000,
-  tulare:    80000,
 };
 
 // Processed so far (kg)
 const PROCESADO = {
   chandler: 320000,
-  howard:   210000,
   serr:     120000,
-  tulare:    50000,
 };
 
 const DESTINOS = ["Todos", "Alemania", "Brasil", "Corea", "Italia", "España"];
 const CALIDADES = ["Todas", "Extra Light", "Light", "Light Amber", "Amber", "Industrial"];
-const VARIEDADES_FILTRO = ["Todas", "Chandler", "Howard", "Serr", "Tulare"];
+const VARIEDADES_FILTRO = ["Todas", "Chandler", "Serr"];
 
 // Annual sales (TN) — projection 2026 vs prior years for the historical comparison
 const VENTAS_ANUALES = [
