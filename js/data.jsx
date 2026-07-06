@@ -97,10 +97,26 @@ function fmtUnit(kg, precio, unit, total) {
 
 const UNIT_SUFFIX = { kg: "KG", usd: "USD", pct: "" };
 
+// Breakdown by variety (Chandler/Serr) for each sales metric
+const METRICAS_VARIEDAD = {
+  despachado:   { chandler: 590000, serr: 256000 },
+  comprometido: { chandler: 167000, serr:  72000 },
+  porVender:    { chandler: 243000, serr: 105000 },
+};
+
+// Breakdown by type (NCC/NSC) for each sales metric
+const METRICAS_TIPO = {
+  presupuesto:  { ncc: 980000, nsc: 548000 },
+  despachado:   { ncc: 544000, nsc: 302000 },
+  comprometido: { ncc: 154000, nsc:  85000 },
+  porVender:    { ncc: 221000, nsc: 127000 },
+};
+
 Object.assign(window, {
   VARIEDADES, PRESUPUESTO_DEFAULT, PROCESADO,
   DESTINOS, CALIDADES, VARIEDADES_FILTRO,
   VENTAS_ANUALES, VOL_PAISES, MERCADOS, COMPETIDORES,
   CALIDAD_PARAMS_DEFAULT, CORTES_DEFAULT,
+  METRICAS_VARIEDAD, METRICAS_TIPO,
   fmtKg, fmtUsd, fmtUsdFull, fmtPct, fmtUnit, UNIT_SUFFIX,
 });

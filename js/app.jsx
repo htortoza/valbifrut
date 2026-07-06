@@ -122,8 +122,8 @@ function App() {
           {cortesTs && <span style={{ color: "var(--green-text)", marginLeft: 2 }}>•</span>}</button>
       </div>
 
-      {/* TOP: three tables */}
-      <TopSection presupVar={presupVar} procesado={procesado} unit={unit} setUnit={setUnit}
+      {/* TOP: four metric cards */}
+      <TopSection presupVar={presupVar} unit={unit} setUnit={setUnit}
         onEditBudget={() => setModal("budget")} />
 
       {/* NUEVA SECCIÓN: desglose por producto + calculadora */}
