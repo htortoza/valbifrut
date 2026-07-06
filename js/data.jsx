@@ -97,6 +97,19 @@ function fmtUnit(kg, precio, unit, total) {
 
 const UNIT_SUFFIX = { kg: "KG", usd: "USD", pct: "" };
 
+// Projected prices per product
+const PRECIOS_DEFAULT = [
+  { key: "ncc_36p",  label: "NCC +36mm",               unidad: "USD/kg", min: 2.80, max: 3.40, obj: 3.10 },
+  { key: "ncc_3436", label: "NCC 34-36mm",              unidad: "USD/kg", min: 2.65, max: 3.25, obj: 2.95 },
+  { key: "ncc_3234", label: "NCC 32-34mm",              unidad: "USD/kg", min: 2.40, max: 3.00, obj: 2.70 },
+  { key: "ncc_3032", label: "NCC 30-32mm",              unidad: "USD/kg", min: 2.15, max: 2.75, obj: 2.45 },
+  { key: "ncc_2830", label: "NCC 28-30mm",              unidad: "USD/kg", min: 1.90, max: 2.50, obj: 2.20 },
+  { key: "nsc_mar",  label: "NSC Mariposas EL/L",       unidad: "USD/kg", min: 7.80, max: 9.00, obj: 8.40 },
+  { key: "nsc_cua",  label: "NSC Cuartos EL/L",         unidad: "USD/kg", min: 6.60, max: 7.80, obj: 7.20 },
+  { key: "nsc_c69",  label: "NSC Cuartillos 6-9/9-13mm",unidad: "USD/kg", min: 5.60, max: 6.60, obj: 6.10 },
+  { key: "nsc_ind",  label: "NSC Industrial A y B",     unidad: "USD/kg", min: 2.80, max: 3.60, obj: 3.20 },
+];
+
 // Cross-tab: variety × type for each metric (chandlerNcc, chandlerNsc, serrNcc, serrNsc)
 const METRICAS = {
   presupuesto:  { chandlerNcc: 686000, chandlerNsc: 384000, serrNcc: 294000, serrNsc: 164000 },
@@ -109,7 +122,7 @@ Object.assign(window, {
   VARIEDADES, PRESUPUESTO_DEFAULT, PROCESADO,
   DESTINOS, CALIDADES, VARIEDADES_FILTRO,
   VENTAS_ANUALES, VOL_PAISES, MERCADOS, COMPETIDORES,
-  CALIDAD_PARAMS_DEFAULT, CORTES_DEFAULT,
+  CALIDAD_PARAMS_DEFAULT, CORTES_DEFAULT, PRECIOS_DEFAULT,
   METRICAS,
   fmtKg, fmtUsd, fmtUsdFull, fmtPct, fmtUnit, UNIT_SUFFIX,
 });

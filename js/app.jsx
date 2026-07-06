@@ -14,6 +14,8 @@ const LS = {
   calidadTs: "valbifrut.calidad.ts",
   cortes: "valbifrut.cortes",
   cortesTs: "valbifrut.cortes.ts",
+  precios: "valbifrut.precios",
+  preciosTs: "valbifrut.precios.ts",
 };
 
 function loadLS(key, fallback) {
@@ -44,6 +46,8 @@ function App() {
   const [calidadTs, setCalidadTs] = useState(() => loadLS(LS.calidadTs, null));
   const [cortes, setCortes] = useState(() => loadLS(LS.cortes, CORTES_DEFAULT));
   const [cortesTs, setCortesTs] = useState(() => loadLS(LS.cortesTs, null));
+  const [precios, setPrecios] = useState(() => loadLS(LS.precios, PRECIOS_DEFAULT));
+  const [preciosTs, setPreciosTs] = useState(() => loadLS(LS.preciosTs, null));
 
   // modals
   const [modal, setModal] = useState(null);
@@ -91,6 +95,13 @@ function App() {
     localStorage.setItem(LS.cortesTs, JSON.stringify(ts));
     setModal(null); flash("Cortes del partido mecánico guardados");
   }
+  function savePrecios(rows) {
+    const ts = nowStamp();
+    setPrecios(rows); setPreciosTs(ts);
+    localStorage.setItem(LS.precios, JSON.stringify(rows));
+    localStorage.setItem(LS.preciosTs, JSON.stringify(ts));
+    setModal(null); flash("Precios proyectados guardados");
+  }
 
   return (
     <div className="app-shell">
@@ -120,6 +131,8 @@ function App() {
           {calidadTs && <span style={{ color: "var(--green-text)", marginLeft: 2 }}>•</span>}</button>
         <button className="btn btn-ghost" onClick={() => setModal("cortes")}>{Icon.scissors}Cortes del Partido Mecánico
           {cortesTs && <span style={{ color: "var(--green-text)", marginLeft: 2 }}>•</span>}</button>
+        <button className="btn btn-ghost" onClick={() => setModal("precios")}>{Icon.chart}Precios Proyectados
+          {preciosTs && <span style={{ color: "var(--green-text)", marginLeft: 2 }}>•</span>}</button>
       </div>
 
       {/* TOP: four metric cards */}
@@ -159,6 +172,9 @@ function App() {
       )}
       {modal === "cortes" && (
         <CortesModal cortes={cortes} baseKg={totalProcKg} lastSaved={cortesTs} onSave={saveCortes} onClose={() => setModal(null)} />
+      )}
+      {modal === "precios" && (
+        <PreciosModal params={precios} lastSaved={preciosTs} onSave={savePrecios} onClose={() => setModal(null)} />
       )}
 
       {/* toast */}

@@ -223,4 +223,71 @@ function CortesModal({ cortes, baseKg, lastSaved, onSave, onClose }) {
   );
 }
 
-Object.assign(window, { DEST_BUDGET, ModalShell, BudgetModal, CalidadModal, CortesModal });
+/* ---- Precios Proyectados: min / max / objetivo por producto ---- */
+function PreciosModal({ params, lastSaved, onSave, onClose }) {
+  const [src, setSrc] = useState("manual");
+  const [rows, setRows] = useState(() => JSON.parse(JSON.stringify(params)));
+  const [pulled, setPulled] = useState(false);
+  const fromDB = src === "db";
+
+  const pull = () => { setRows(PRECIOS_DEFAULT.map(r => ({ ...r }))); setPulled(true); };
+  const set = (i, field, val) => {
+    setRows(p => p.map((r, idx) => idx === i ? { ...r, [field]: val === "" ? "" : parseFloat(val) } : r));
+  };
+
+  return (
+    <ModalShell
+      title="Precios Proyectados"
+      sub="Rango de precio FOB estimado por producto para la temporada"
+      onClose={onClose}
+      foot={
+        <React.Fragment>
+          <span className="hint">{lastSaved ? <span className="save-note">✓ Guardado: {lastSaved}</span> : "Sin registro guardado"}</span>
+          <div style={{ display: "flex", gap: 10 }}>
+            <button className="btn btn-ghost" onClick={onClose}>Cancelar</button>
+            <button className="btn btn-green" onClick={() => onSave(rows)}>{Icon.save}Guardar precios</button>
+          </div>
+        </React.Fragment>
+      }>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 18 }}>
+        <div className="src-toggle">
+          <button className={src === "manual" ? "active" : ""} onClick={() => setSrc("manual")}>Ingreso manual</button>
+          <button className={src === "db" ? "active" : ""} onClick={() => setSrc("db")}>Base de datos</button>
+        </div>
+        {fromDB && <button className="btn btn-dark" onClick={pull}>{Icon.db}Traer de base de datos</button>}
+      </div>
+      {fromDB && (
+        <div className="hint" style={{ marginBottom: 14 }}>
+          {pulled ? "✓ Precios sincronizados. Puedes ajustarlos antes de guardar." : "Pulsa \"Traer de base de datos\" para cargar los últimos precios registrados."}
+        </div>
+      )}
+      <table className="edit">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th className="num">Mín.</th>
+            <th className="num">Máx.</th>
+            <th className="num">Proyectado</th>
+            <th className="num">Moneda</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r, i) => (
+            <tr key={r.key}>
+              <td className="var">{r.label}</td>
+              {["min","max","obj"].map(f => (
+                <td key={f} className="num">
+                  <input inputMode="decimal" disabled={fromDB && !pulled} value={r[f]}
+                    onChange={e => set(i, f, e.target.value)} />
+                </td>
+              ))}
+              <td className="num" style={{ color: "var(--muted)" }}>{r.unidad}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </ModalShell>
+  );
+}
+
+Object.assign(window, { DEST_BUDGET, ModalShell, BudgetModal, CalidadModal, CortesModal, PreciosModal });
