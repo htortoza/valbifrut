@@ -1,9 +1,10 @@
 /* ============ TOP SECTION — 4 metric cards ============ */
 
-function MetricCard({ title, tagClass, tagText, chandler, serr, ncc, nsc, onEdit }) {
-  const totalVar  = chandler + serr;
-  const totalTipo = ncc + nsc;
+function MetricCard({ title, tagClass, tagText, data, onEdit }) {
   const fmt = n => Math.round(n).toLocaleString("en-US");
+  const { chandlerNcc, chandlerNsc, serrNcc, serrNsc } = data;
+  const totalNcc = chandlerNcc + serrNcc;
+  const totalNsc = chandlerNsc + serrNsc;
 
   return (
     <div className="card card-pad">
@@ -15,17 +16,28 @@ function MetricCard({ title, tagClass, tagText, chandler, serr, ncc, nsc, onEdit
       </div>
       <table className="t">
         <thead>
-          <tr><th>Detalle</th><th className="num">KG</th></tr>
+          <tr>
+            <th>Variedad</th>
+            <th className="num">NCC</th>
+            <th className="num">NSC</th>
+          </tr>
         </thead>
         <tbody>
-          <tr className="grp-metric"><td colSpan={2}>Por variedad</td></tr>
-          <tr><td className="var">Chandler</td><td className="num"><span className="cellnum">{fmt(chandler)}</span></td></tr>
-          <tr><td className="var">Serr</td><td className="num"><span className="cellnum">{fmt(serr)}</span></td></tr>
-          <tr><td className="var" style={{ color: "var(--muted)" }}>Subtotal</td><td className="num"><span className="cellnum" style={{ color: "var(--muted)" }}>{fmt(totalVar)}</span></td></tr>
-          <tr className="grp-metric"><td colSpan={2}>Por tipo</td></tr>
-          <tr><td className="var">NCC</td><td className="num"><span className="cellnum">{fmt(ncc)}</span></td></tr>
-          <tr><td className="var">NSC</td><td className="num"><span className="cellnum">{fmt(nsc)}</span></td></tr>
-          <tr className="total"><td className="var">Total</td><td className="num"><span className="cellnum">{fmt(totalTipo)}</span></td></tr>
+          <tr>
+            <td className="var">Chandler</td>
+            <td className="num"><span className="cellnum">{fmt(chandlerNcc)}</span></td>
+            <td className="num"><span className="cellnum">{fmt(chandlerNsc)}</span></td>
+          </tr>
+          <tr>
+            <td className="var">Serr</td>
+            <td className="num"><span className="cellnum">{fmt(serrNcc)}</span></td>
+            <td className="num"><span className="cellnum">{fmt(serrNsc)}</span></td>
+          </tr>
+          <tr className="total">
+            <td className="var">Total</td>
+            <td className="num"><span className="cellnum">{fmt(totalNcc)}</span></td>
+            <td className="num"><span className="cellnum">{fmt(totalNsc)}</span></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -33,9 +45,6 @@ function MetricCard({ title, tagClass, tagText, chandler, serr, ncc, nsc, onEdit
 }
 
 function TopSection({ presupVar, unit, setUnit, onEditBudget }) {
-  const chandlerPres = presupVar.chandler || 0;
-  const serrPres     = presupVar.serr     || 0;
-
   return (
     <div style={{ marginBottom: 18 }}>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 13 }}>
@@ -46,27 +55,14 @@ function TopSection({ presupVar, unit, setUnit, onEditBudget }) {
         <UnitToggle value={unit} onChange={setUnit} />
       </div>
       <div className="quad-grid">
-        <MetricCard
-          title="Presupuesto" tagClass="tag-plan" tagText="Plan"
-          chandler={chandlerPres} serr={serrPres}
-          ncc={METRICAS_TIPO.presupuesto.ncc} nsc={METRICAS_TIPO.presupuesto.nsc}
-          onEdit={onEditBudget}
-        />
-        <MetricCard
-          title="Despachado" tagClass="tag-done" tagText="Real"
-          chandler={METRICAS_VARIEDAD.despachado.chandler} serr={METRICAS_VARIEDAD.despachado.serr}
-          ncc={METRICAS_TIPO.despachado.ncc} nsc={METRICAS_TIPO.despachado.nsc}
-        />
-        <MetricCard
-          title="Comprometido" tagClass="tag-comp" tagText="Firmado"
-          chandler={METRICAS_VARIEDAD.comprometido.chandler} serr={METRICAS_VARIEDAD.comprometido.serr}
-          ncc={METRICAS_TIPO.comprometido.ncc} nsc={METRICAS_TIPO.comprometido.nsc}
-        />
-        <MetricCard
-          title="Por Vender" tagClass="tag-rest" tagText="Pendiente"
-          chandler={METRICAS_VARIEDAD.porVender.chandler} serr={METRICAS_VARIEDAD.porVender.serr}
-          ncc={METRICAS_TIPO.porVender.ncc} nsc={METRICAS_TIPO.porVender.nsc}
-        />
+        <MetricCard title="Presupuesto" tagClass="tag-plan" tagText="Plan"
+          data={METRICAS.presupuesto} onEdit={onEditBudget} />
+        <MetricCard title="Despachado" tagClass="tag-done" tagText="Real"
+          data={METRICAS.despachado} />
+        <MetricCard title="Comprometido" tagClass="tag-comp" tagText="Firmado"
+          data={METRICAS.comprometido} />
+        <MetricCard title="Por Vender" tagClass="tag-rest" tagText="Pendiente"
+          data={METRICAS.porVender} />
       </div>
     </div>
   );
