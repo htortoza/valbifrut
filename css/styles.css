@@ -662,3 +662,53 @@ table.calc-tbl tr.total td {
   font-weight: 800 !important;
   letter-spacing: -0.01em !important;
 }
+
+/* =====================================================
+   COMEX DASHBOARD
+===================================================== */
+
+.filters-comex {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 22px 24px;
+}
+
+/* multi-select */
+.msel { position: relative; }
+.msel-btn {
+  width: 100%; text-align: left; font: inherit; font-size: 13px; font-weight: 500;
+  color: var(--ink); background: #fff; border: 0; padding: 9px 26px 9px 11px; cursor: pointer;
+}
+.msel-panel {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; background: #fff;
+  border: 1px solid var(--line-2); border-radius: 10px; box-shadow: 0 12px 28px rgba(10,15,20,.14);
+  padding: 8px; z-index: 20; max-height: 240px; overflow: auto;
+}
+.msel-opt {
+  display: flex; align-items: center; gap: 8px; padding: 7px 8px; border-radius: 7px;
+  font-size: 12.5px; color: var(--ink-2); cursor: pointer;
+}
+.msel-opt:hover { background: #f6f7f8; }
+.msel-opt input { accent-color: var(--green); }
+
+/* stacked segment bar (embarques comprometidos) */
+.seg-bar { display: flex; height: 9px; border-radius: 6px; overflow: hidden; background: var(--line); }
+.seg-bar > span { display: block; height: 100%; }
+
+/* embedded progress bar in table cell */
+.cell-bar { width: 60px; height: 6px; border-radius: 3px; background: #eef0f2; overflow: hidden; display: inline-block; vertical-align: middle; margin-right: 8px; }
+.cell-bar > span { display: block; height: 100%; border-radius: 3px; background: var(--green); }
+
+/* weekly agenda calendar */
+.cal-week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 12px; }
+.cal-day { background: #fafbfc; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 10px; min-height: 96px; }
+.cal-day.today { border-color: var(--green); background: var(--green-lighter); }
+.cal-daylabel { font-size: 9.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; }
+.cal-daylabel .hoy { color: var(--green-text); }
+.cal-event { background: #fff; border: 1px solid var(--line-2); border-radius: 8px; padding: 6px 8px; margin-bottom: 6px; }
+.cal-event .ev-top { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--ink); }
+.cal-event .ev-sub { font-size: 10.5px; color: var(--ink-2); margin-top: 2px; }
+.cal-event .ev-prod { font-size: 9.5px; color: var(--muted); margin-top: 1px; }
+.cal-empty { font-size: 11px; color: var(--muted-2); font-style: italic; }
