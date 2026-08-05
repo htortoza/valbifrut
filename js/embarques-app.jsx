@@ -15,7 +15,7 @@ function detalleDe(row) {
   };
 }
 
-function EmbarquesApp() {
+function EmbarquesSection() {
   const [temporada, setTemporada] = useStateEmbApp(TEMPORADAS_EMB[0]);
   const [clientes, setClientes] = useStateEmbApp([]);
   const [contrato, setContrato] = useStateEmbApp("Todos");
@@ -42,14 +42,9 @@ function EmbarquesApp() {
   const detalle = detalleDe(selectedRow);
 
   return (
-    <div className="app-shell" style={{ maxWidth: 1280 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 18 }}>
-        <div>
-          <h1 className="section-title" style={{ fontSize: 22 }}>Embarques</h1>
-          <div className="mini-sub" style={{ marginTop: 4 }}>Vista maestra de seguimiento · embarques, contratos, logística, pagos y documentos</div>
-        </div>
-        <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--green-deep)" }}>Valbifrut</div>
-      </div>
+    <div>
+      <h2 className="section-title" style={{ fontSize: 19 }}>Embarques</h2>
+      <div className="mini-sub" style={{ marginTop: 4, marginBottom: 18 }}>Vista maestra de seguimiento · embarques, contratos, logística, pagos y documentos</div>
 
       <EmbarquesFilters
         temporada={temporada} setTemporada={setTemporada}
@@ -76,5 +71,3 @@ function EmbarquesApp() {
     </div>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<EmbarquesApp />);

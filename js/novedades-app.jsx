@@ -1,7 +1,7 @@
 /* ============ NOVEDADES COMERCIALES · APP ============ */
 const { useState: useStateNovApp } = React;
 
-function NovedadesApp() {
+function NovedadesSection() {
   const [temporada, setTemporada] = useStateNovApp(TEMPORADAS_NOV[0]);
   const [rango, setRango] = useStateNovApp(RANGOS_NOV[0]);
   const [clientes, setClientes] = useStateNovApp([]);
@@ -16,14 +16,9 @@ function NovedadesApp() {
   const despachados = EMBARQUES_DESPACHADOS_NOV.filter(r => pasaCliente(r.cliente) && pasaProdVar(r.producto));
 
   return (
-    <div className="app-shell" style={{ maxWidth: 1280 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 18 }}>
-        <div>
-          <h1 className="section-title" style={{ fontSize: 22 }}>Novedades Comerciales</h1>
-          <div className="mini-sub" style={{ marginTop: 4 }}>Vista ejecutiva semanal · contratos nuevos, kilos de temporada y despachos recientes</div>
-        </div>
-        <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--green-deep)" }}>Valbifrut</div>
-      </div>
+    <div>
+      <h2 className="section-title" style={{ fontSize: 19 }}>Novedades Comerciales</h2>
+      <div className="mini-sub" style={{ marginTop: 4, marginBottom: 18 }}>Vista ejecutiva semanal · contratos nuevos, kilos de temporada y despachos recientes</div>
 
       <NovedadesFilters
         temporada={temporada} setTemporada={setTemporada}
@@ -53,5 +48,3 @@ function NovedadesApp() {
     </div>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<NovedadesApp />);

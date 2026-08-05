@@ -1,7 +1,7 @@
 /* ============ COBRANZAS · APP ============ */
 const { useState: useStateCobApp } = React;
 
-function CobranzasApp() {
+function CobranzasSection() {
   const [temporada, setTemporada] = useStateCobApp(TEMPORADAS_COB[0]);
   const [rango, setRango] = useStateCobApp(RANGOS_VENCIMIENTO_COB[1]);
   const [clientes, setClientes] = useStateCobApp([]);
@@ -14,14 +14,9 @@ function CobranzasApp() {
   );
 
   return (
-    <div className="app-shell" style={{ maxWidth: 1280 }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 18 }}>
-        <div>
-          <h1 className="section-title" style={{ fontSize: 22 }}>Cobranzas</h1>
-          <div className="mini-sub" style={{ marginTop: 4 }}>Vista de gestión · saldos pendientes, vencimientos, documentos y seguimiento de pago</div>
-        </div>
-        <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--green-deep)" }}>Valbifrut</div>
-      </div>
+    <div>
+      <h2 className="section-title" style={{ fontSize: 19 }}>Cobranzas</h2>
+      <div className="mini-sub" style={{ marginTop: 4, marginBottom: 18 }}>Vista de gestión · saldos pendientes, vencimientos, documentos y seguimiento de pago</div>
 
       <CobranzasFilters
         temporada={temporada} setTemporada={setTemporada}
@@ -56,5 +51,3 @@ function CobranzasApp() {
     </div>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<CobranzasApp />);

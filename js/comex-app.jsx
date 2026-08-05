@@ -1,7 +1,7 @@
 /* ============ COMEX APP ============ */
 const { useState: useStateComexApp } = React;
 
-function ComexApp() {
+function PlanificacionSection() {
   const [temporada, setTemporada] = useStateComexApp(TEMPORADAS_COMEX[0]);
   const [mesOperativo, setMesOperativo] = useStateComexApp("Julio 2026");
   const [semanaRango, setSemanaRango] = useStateComexApp(SEMANA_RANGOS_COMEX[1]);
@@ -17,14 +17,9 @@ function ComexApp() {
   });
 
   return (
-    <div className="app-shell">
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 18 }}>
-        <div>
-          <h1 className="section-title" style={{ fontSize: 22 }}>Planificación y Comex</h1>
-          <div className="mini-sub" style={{ marginTop: 4 }}>Vista operativa mensual · compromisos, capacidad, planificación, producción y calendario de cargas</div>
-        </div>
-        <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: ".12em", textTransform: "uppercase", color: "var(--green-deep)" }}>Valbifrut</div>
-      </div>
+    <div>
+      <h2 className="section-title" style={{ fontSize: 19 }}>Planificación</h2>
+      <div className="mini-sub" style={{ marginTop: 4, marginBottom: 18 }}>Vista operativa mensual · compromisos, capacidad, planificación, producción y calendario de cargas</div>
 
       <ComexFilters
         temporada={temporada} setTemporada={setTemporada}
@@ -60,5 +55,3 @@ function ComexApp() {
     </div>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<ComexApp />);
