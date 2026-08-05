@@ -193,4 +193,33 @@ function MultiSel({ label, options, selected, onChange }) {
   );
 }
 
-Object.assign(window, { Donut, AnnualBars, LineChart, Sel, UnitToggle, Icon, SegToggle, SectionEyebrow, InfoCard, MultiSel });
+/* ---- status stepper with a light that travels only across completed segments ---- */
+function StepperNode({ step }) {
+  const cls = step.done ? "done" : step.current ? "current" : "pending";
+  return (
+    <div className="step-node-wrap">
+      <div className={"step-node " + cls}>{step.done ? "✓" : ""}</div>
+      <div className="step-label">{step.label}</div>
+      <div className="step-date">{step.date || (step.current ? "en curso" : "Pendiente")}</div>
+    </div>
+  );
+}
+
+function Stepper({ steps, size }) {
+  return (
+    <div className={"stepper" + (size === "lg" ? " lg" : "")}>
+      {steps.map((s, i) => (
+        <React.Fragment key={s.label}>
+          <StepperNode step={s} />
+          {i < steps.length - 1 && (
+            <div className={"step-line" + (s.done ? " active" : "")}>
+              {s.done && <span className="light"></span>}
+            </div>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+
+Object.assign(window, { Donut, AnnualBars, LineChart, Sel, UnitToggle, Icon, SegToggle, SectionEyebrow, InfoCard, MultiSel, Stepper });

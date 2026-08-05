@@ -217,6 +217,7 @@ table.t tr.grp-metric td {
   border-radius: 6px;
 }
 .tag-plan { background: #eef1f4; color: #6b7986; }
+.tag-danger { background: #fde8e8; color: #c0392b; }
 .tag-done { background: var(--green-lighter); color: var(--green-deep); }
 .tag-rest { background: #fbf0e2; color: #b9772a; }
 
@@ -715,3 +716,53 @@ table.calc-tbl tr.total td {
 .cal-event .ev-sub { font-size: 10.5px; color: var(--ink-2); margin-top: 2px; }
 .cal-event .ev-prod { font-size: 9.5px; color: var(--muted); margin-top: 1px; }
 .cal-empty { font-size: 11px; color: var(--muted-2); font-style: italic; }
+
+/* =====================================================
+   STATUS STEPPER (círculos + línea con luz viajera)
+===================================================== */
+.stepper { display: flex; align-items: flex-start; }
+.step-node-wrap { display: flex; flex-direction: column; align-items: center; width: 78px; flex-shrink: 0; }
+.step-node {
+  width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 800; flex-shrink: 0;
+}
+.step-node.done { background: var(--green); color: #fff; }
+.step-node.current { background: #fff; border: 2px solid #2e5db3; box-shadow: 0 0 0 3px rgba(46,93,179,.15); }
+.step-node.pending { background: #fff; border: 2px solid var(--line-2); }
+.step-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--ink-2); margin-top: 6px; text-align: center; }
+.step-date { font-size: 9px; color: var(--muted); margin-top: 1px; text-align: center; }
+.step-line { flex: 1; height: 2px; background: var(--line-2); margin-top: 11px; position: relative; min-width: 16px; }
+.step-line.active { background: var(--green); }
+.step-line .light {
+  position: absolute; top: -3px; left: 0; width: 8px; height: 8px; border-radius: 50%; background: #fff;
+  box-shadow: 0 0 8px 2px var(--green), 0 0 3px 1px #fff; opacity: 0;
+  animation: step-light-travel 10s linear infinite;
+}
+@keyframes step-light-travel {
+  0%   { left: 0%; opacity: 0; }
+  3%   { opacity: 1; }
+  38%  { left: calc(100% - 8px); opacity: 1; }
+  42%  { opacity: 0; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .step-line .light { animation: none; opacity: 0; }
+}
+.stepper.lg .step-node { width: 30px; height: 30px; font-size: 13px; }
+.stepper.lg .step-node-wrap { width: 108px; }
+.stepper.lg .step-label { font-size: 10px; }
+.stepper.lg .step-date { font-size: 10px; }
+
+/* ---------- filtros con búsqueda / muchas columnas ---------- */
+.filters-embarques {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 22px 24px;
+}
+.search-input {
+  width: 100%; font: inherit; font-size: 13px; color: var(--ink); background: #fff;
+  border: 1px solid var(--line-2); border-radius: 9px; padding: 9px 11px; outline: none;
+}
+.search-input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(33,196,93,.13); }
