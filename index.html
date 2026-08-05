@@ -10,7 +10,7 @@
     .wrap { text-align: center; }
     .logo { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #4e7a28; margin-bottom: 8px; }
     h1 { font-size: 22px; font-weight: 700; color: #1a1f2e; margin-bottom: 32px; }
-    .cards { display: flex; gap: 16px; }
+    .cards { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
     a.card { display: block; background: #fff; border: 1px solid #e4e7ec; border-radius: 12px; padding: 32px 40px; text-decoration: none; color: inherit; transition: box-shadow .2s, border-color .2s; }
     a.card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.10); border-color: #4e7a28; }
     .card-icon { font-size: 28px; margin-bottom: 12px; }
@@ -23,6 +23,11 @@
     <div class="logo">Valbifrut</div>
     <h1>Tableros de gestión</h1>
     <div class="cards">
+      <a class="card" href="Tablero Novedades.html">
+        <div class="card-icon">📰</div>
+        <div class="card-title">Novedades Comerciales</div>
+        <div class="card-sub">Contratos, kilos y despachos recientes</div>
+      </a>
       <a class="card" href="Tablero Ventas.html">
         <div class="card-icon">📊</div>
         <div class="card-title">Tablero de Ventas</div>

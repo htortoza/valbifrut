@@ -1,71 +1,5 @@
 /* ============ COMEX SECTIONS ============ */
-const { useState: useStateComex, useRef: useRefComex, useEffect: useEffectComex } = React;
-
-/* ---- generic segmented toggle (reuses .unit-toggle styling) ---- */
-function SegToggle({ value, onChange, options }) {
-  return (
-    <div className="unit-toggle">
-      {options.map(([k, lbl]) => (
-        <button key={k} className={value === k ? "active" : ""} onClick={() => onChange(k)}>{lbl}</button>
-      ))}
-    </div>
-  );
-}
-
-/* ---- section eyebrow with green marker (matches other Comex vistas) ---- */
-function SectionEyebrow({ children }) {
-  return (
-    <div className="eyebrow" style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-      <span style={{ width: 8, height: 8, background: "var(--green)", borderRadius: 2, display: "inline-block" }}></span>
-      {children}
-    </div>
-  );
-}
-
-/* ---- shared card shell: title + context chip + optional sub ---- */
-function InfoCard({ title, tag, sub, children }) {
-  return (
-    <div className="card card-pad">
-      <div className="mini-head" style={{ marginBottom: sub ? 6 : 14 }}>
-        <h3 className="mini-title">{title}</h3>
-        {tag && <span className="chip">{tag}</span>}
-      </div>
-      {sub && <div className="mini-sub" style={{ marginBottom: 14 }}>{sub}</div>}
-      {children}
-    </div>
-  );
-}
-
-/* ---- multi-select dropdown filter ---- */
-function MultiSel({ label, options, selected, onChange }) {
-  const [open, setOpen] = useStateComex(false);
-  const ref = useRefComex(null);
-  useEffectComex(() => {
-    const h = e => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
-    window.addEventListener("mousedown", h);
-    return () => window.removeEventListener("mousedown", h);
-  }, []);
-  const toggle = opt => onChange(selected.includes(opt) ? selected.filter(o => o !== opt) : [...selected, opt]);
-  const summary = selected.length === 0 ? "Todos" : selected.length === 1 ? selected[0] : selected.length + " seleccionados";
-  return (
-    <div className="filter" ref={ref}>
-      <label>{label}</label>
-      <div className="select msel">
-        <button type="button" className="msel-btn" onClick={() => setOpen(o => !o)}>{summary}</button>
-        {open && (
-          <div className="msel-panel">
-            {options.map(opt => (
-              <label key={opt} className="msel-opt">
-                <input type="checkbox" checked={selected.includes(opt)} onChange={() => toggle(opt)} />
-                {opt}
-              </label>
-            ))}
-          </div>
-        )}
-      </div>
-    </div>
-  );
-}
+const { useState: useStateComex } = React;
 
 /* ---- top filter bar (6 filtros) ---- */
 function ComexFilters({ temporada, setTemporada, mesOperativo, setMesOperativo, semanaRango, setSemanaRango,
@@ -446,8 +380,7 @@ function ComexFooter() {
 }
 
 Object.assign(window, {
-  SegToggle, SectionEyebrow, InfoCard, MultiSel, ComexFilters,
-  EmbarquesCard, CapacidadCard, DocumentosCard, NavesCard,
+  ComexFilters, EmbarquesCard, CapacidadCard, DocumentosCard, NavesCard,
   WeekBars, agruparPorMes, DespachosChart, StackingTable, EstadoBadge, exportCsvComex,
   PlanificacionGrid, CalEvent, PlanificacionCalendar, ComexFooter,
 });
