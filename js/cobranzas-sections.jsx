@@ -35,14 +35,6 @@ function CobranzasFilters({ temporada, setTemporada, rango, setRango, clientes, 
   );
 }
 
-function AvisoEjemplo() {
-  return (
-    <div className="hint" style={{ background: "#fdf3e3", border: "1px solid #f0d9a8", borderRadius: 10, padding: "12px 16px", marginBottom: 18, color: "#8a6415" }}>
-      ⚠ Vista con montos de ejemplo. La planilla actual no consolida pagos, saldos ni condiciones de pago; esta vista se activará cuando el módulo de cobranzas entregue datos reales.
-    </div>
-  );
-}
-
 /* ---- 1. Saldo pendiente total ---- */
 function SaldoTotalCard({ data }) {
   const pctVencido = data.total ? data.vencido / data.total * 100 : 0;
@@ -268,6 +260,6 @@ function CobranzasFooter() {
 }
 
 Object.assign(window, {
-  CobranzasFilters, AvisoEjemplo, SaldoTotalCard, VencidoCard, PorVencerCard, RecibidoMesCard,
+  CobranzasFilters, SaldoTotalCard, VencidoCard, PorVencerCard, RecibidoMesCard,
   AntiguedadSaldos, TopClientesPendientes, LineaCoface, docChip, GrillaCobranzas, CobranzasFooter,
 });

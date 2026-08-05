@@ -27,8 +27,6 @@ function CobranzasSection() {
         moneda={moneda} setMoneda={setMoneda}
       />
 
-      <AvisoEjemplo />
-
       <SectionEyebrow>Cobranza · resumen ejecutivo</SectionEyebrow>
       <div className="quad-grid" style={{ marginBottom: 16 }}>
         <SaldoTotalCard data={SALDO_TOTAL_COB} />
